@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["robin.dupret@gmail.com"]
   spec.description   = %q{CarrierWave storage for Dropbox}
   spec.summary       = %q{Dropbox integration for CarrierWave}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/robin850/carrierwave-dropbox"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
