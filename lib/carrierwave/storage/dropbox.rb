@@ -18,7 +18,7 @@ module CarrierWave
 
       # Retrieve a single file
       def retrieve!(file)
-        CarrierWave::Storage::Dropbox::File.new(uploader, config, uploader.store_path(file))
+        CarrierWave::Storage::Dropbox::File.new(uploader, config, uploader.store_path(file), dropbox_client)
       end
 
       private
@@ -48,13 +48,18 @@ module CarrierWave
         include CarrierWave::Utilities::Uri
         attr_reader :path
 
-        def initialize(uploader, config, path)
-          @uploader, @config, @path = uploader, config, path
+        def initialize(uploader, config, path, client)
+          @uploader, @config, @path, @client = uploader, config, path, client
         end
 
         def url
           user_id, path = @config[:user_id], @path
           "https://dl.dropboxusercontent.com/u/#{user_id}/#{path}"
+        end
+
+        def delete
+          path = "/Public/#{@path}" if @config[:access_type] == "dropbox"
+          @client.file_delete(path)
         end
       end
     end
