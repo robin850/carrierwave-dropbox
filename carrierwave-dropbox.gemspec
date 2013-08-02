@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = CarrierWave::Dropbox::VERSION
   spec.authors       = ["Robin Dupret"]
   spec.email         = ["robin.dupret@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{CarrierWave storage for Dropbox}
+  spec.summary       = %q{Dropbox integration for CarrierWave}
   spec.homepage      = ""
   spec.license       = "MIT"
 
