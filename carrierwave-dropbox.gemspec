@@ -5,7 +5,7 @@ require 'carrierwave/dropbox/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "carrierwave-dropbox"
-  spec.version       = Carrierwave::Dropbox::VERSION
+  spec.version       = CarrierWave::Dropbox::VERSION
   spec.authors       = ["Robin Dupret"]
   spec.email         = ["robin.dupret@gmail.com"]
   spec.description   = %q{TODO: Write a gem description}
@@ -23,4 +23,10 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "capybara", "~> 2.0"
+  spec.add_development_dependency "rspec", "~> 2.14"
+  spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency "mini_magick"
+  spec.add_development_dependency "selenium-webdriver"
+  spec.add_development_dependency "rails", ">= 3.2.14", "< 5.0"
 end

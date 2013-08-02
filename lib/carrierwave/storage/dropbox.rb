@@ -1,30 +1,61 @@
+# encoding: utf-8
 require 'dropbox_sdk'
 
-module Carrierwave
+module CarrierWave
   module Storage
     class Dropbox < Abstract
 
       # Stubs we must implement to create and save
       # files (here on Dropbox)
 
-      # Fetch a single file
+      # Store a single file
       def store!(file)
-        dropbox_client.put_file(file.path, file.to_file)
+        location = uploader.store_path
+        location = "/Public/#{location}" if config[:access_type] == "dropbox"
+
+        dropbox_client.put_file(location, file.to_file)
       end
 
-      # Fetch the a single file
+      # Retrieve a single file
       def retrieve!(file)
-        "https://dl.dropboxusercontent.com/u/#{uploader.dropbox_user_id}/#{file.path}"
+        CarrierWave::Storage::Dropbox::File.new(uploader, config, uploader.store_path(file))
       end
 
       private
 
       def dropbox_client
-        consumer_key    = uploader.dropbox_key
-        consumer_secret = uploader.dropbox_secret
+        @dropbox_client ||= begin
+          session = DropboxSession.new(config[:app_key], config[:app_secret])
+          session.set_access_token(config[:access_token], config[:access_token_secret])
+          DropboxClient.new(session, config[:access_type])
+        end
+      end
 
-        token = DropboxOAuth2FlowNoRedirect.new(consumer_key, consumer_secret)
-        DropboxClient.new(token)
+      def config
+        @config ||= {}
+
+        @config[:app_key] ||= uploader.dropbox_app_key
+        @config[:app_secret] ||= uploader.dropbox_app_secret
+        @config[:access_token] ||= uploader.dropbox_access_token
+        @config[:access_token_secret] ||= uploader.dropbox_access_token_secret
+        @config[:access_type] ||= uploader.dropbox_access_type || "dropbox"
+        @config[:user_id] ||= uploader.dropbox_user_id
+
+        @config
+      end
+
+      class File
+        include CarrierWave::Utilities::Uri
+        attr_reader :path
+
+        def initialize(uploader, config, path)
+          @uploader, @config, @path = uploader, config, path
+        end
+
+        def url
+          user_id, path = @config[:user_id], @path
+          "https://dl.dropboxusercontent.com/u/#{user_id}/#{path}"
+        end
       end
     end
   end
