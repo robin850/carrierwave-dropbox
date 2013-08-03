@@ -5,7 +5,8 @@ This gem allows you to easily upload your medias on Dropbox using the awesome
 
 ## Installation
 
-First, you have to create a [Dropbox app](https://www.dropbox.com/developers/apps). You can either create a "full dropbox" or "app folder" application. Please see
+First, you have to create a [Dropbox app](https://www.dropbox.com/developers/apps).
+You can either create a "full dropbox" or "app folder" application. Please see
 [this wiki](https://github.com/janko-m/paperclip-dropbox/wiki/Access-types) for
 further information and gotchas.
 
@@ -23,7 +24,7 @@ If you are using Rails, the Rake task is automatically loaded. Otherwise, if you
 aren't running a Rails application, first load the task in your `Rakefile`:
 
 ~~~ruby
-load "paperclip/dropbox/tasks.rake"
+load "carrierwave/dropbox/tasks.rake"
 ~~~
 
 Then you have to run this task:
