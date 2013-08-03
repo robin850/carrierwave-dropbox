@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2 (August 3, 2013)
+
+* Add a rescue block for `DropboxError` since CarrierWave is trying to
+delete all specified versions of a file even if they do not exist.
+
 ## 1.0.1 (August 2, 2013)
 
 * Ensure resource edition works
