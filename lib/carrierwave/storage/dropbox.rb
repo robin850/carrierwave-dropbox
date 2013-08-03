@@ -59,7 +59,10 @@ module CarrierWave
 
         def delete
           path = "/Public/#{@path}" if @config[:access_type] == "dropbox"
-          @client.file_delete(path)
+          begin
+            @client.file_delete(path)
+          rescue DropboxError
+          end
         end
       end
     end
