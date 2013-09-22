@@ -54,7 +54,11 @@ module CarrierWave
 
         def url
           user_id, path = @config[:user_id], @path
-          "https://dl.dropboxusercontent.com/u/#{user_id}/#{path}"
+          if @config[:access_type] == "dropbox"
+            "https://dl.dropboxusercontent.com/u/#{user_id}/#{path}"
+          else
+            @client.media(path)["url"]
+          end
         end
 
         def delete
