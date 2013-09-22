@@ -1,5 +1,12 @@
 # Changelog
 
+* Make the gem working with "app_folder" applications.
+
+  Correct the returned URL for applications which are not "dropbox" ones
+  since they are not only accessible publicly.
+
+  Resolve #1
+
 ## 1.0.2 (August 3, 2013)
 
 * Add a rescue block for `DropboxError` since CarrierWave is trying to
