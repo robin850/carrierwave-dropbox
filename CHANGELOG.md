@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.1.0 (September 22, 2013)
+
 * Make the gem working with "app_folder" applications.
 
   Correct the returned URL for applications which are not "dropbox" ones
