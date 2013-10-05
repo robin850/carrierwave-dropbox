@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.1.1 (October 5, 2013)
+
 * Fix deletion when using app_folder accounts
 
 ## 1.1.0 (September 22, 2013)
