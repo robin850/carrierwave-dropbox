@@ -1,5 +1,7 @@
 # Changelog
 
+* Fix deletion when using app_folder accounts
+
 ## 1.1.0 (September 22, 2013)
 
 * Make the gem working with "app_folder" applications.
