@@ -24,7 +24,7 @@ If you are using Rails, the Rake task is automatically loaded. Otherwise, if you
 aren't running a Rails application, first load the task in your `Rakefile`:
 
 ~~~ruby
-load "carrierwave/dropbox/tasks.rake"
+load "carrierwave/dropbox/authorize.rake"
 ~~~
 
 Then you have to run this task:
