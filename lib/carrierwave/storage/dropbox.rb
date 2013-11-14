@@ -11,7 +11,7 @@ module CarrierWave
       # Store a single file
       def store!(file)
         location = uploader.store_path
-        location = "/Public/#{location}" if config[:access_type] == "dropbox"
+        location = "/#{location}" if config[:access_type] == "dropbox"
 
         dropbox_client.put_file(location, file.to_file)
       end
@@ -54,16 +54,12 @@ module CarrierWave
 
         def url
           user_id, path = @config[:user_id], @path
-          if @config[:access_type] == "dropbox"
-            "https://dl.dropboxusercontent.com/u/#{user_id}/#{path}"
-          else
-            @client.media(path)["url"]
-          end
+          @client.media(path)["url"]
         end
 
         def delete
           path = @path
-          path = "/Public/#{path}" if @config[:access_type] == "dropbox"
+          path = "/#{path}" if @config[:access_type] == "dropbox"
           begin
             @client.file_delete(path)
           rescue DropboxError
