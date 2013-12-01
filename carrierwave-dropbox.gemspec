@@ -27,6 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 2.14"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "mini_magick"
-  spec.add_development_dependency "selenium-webdriver", "~> 2.35.1"
+  spec.add_development_dependency "capybara-webkit", "~> 1.0"
   spec.add_development_dependency "rails", ">= 3.2.14", "< 5.0"
 end
