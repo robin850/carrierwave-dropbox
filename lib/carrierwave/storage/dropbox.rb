@@ -53,8 +53,7 @@ module CarrierWave
         end
 
         def url
-          user_id, path = @config[:user_id], @path
-          @client.media(path)["url"]
+          @client.media(@path)["url"]
         end
 
         def delete
