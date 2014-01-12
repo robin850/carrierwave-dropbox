@@ -1,10 +1,14 @@
 # Changelog
 
+## 1.2.0 (January 12, 2014)
+
 * Make the `dropbox_client` method public
 
   You can now easily access to the `dropbox_client` method to get
   information about the current connection or check if the latter is
   active or not.
+
+* Use the root path instead of the `Public` directory by default
 
 ## 1.1.1 (October 5, 2013)
 
