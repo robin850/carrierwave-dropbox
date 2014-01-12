@@ -19,8 +19,6 @@ module CarrierWave
         CarrierWave::Storage::Dropbox::File.new(uploader, config, uploader.store_path(file), dropbox_client)
       end
 
-      private
-
       def dropbox_client
         @dropbox_client ||= begin
           session = DropboxSession.new(config[:app_key], config[:app_secret])
@@ -28,6 +26,8 @@ module CarrierWave
           DropboxClient.new(session, config[:access_type])
         end
       end
+
+      private
 
       def config
         @config ||= {}
