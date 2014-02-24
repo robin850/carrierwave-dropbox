@@ -10,7 +10,7 @@ module CarrierWave
 
       # Store a single file
       def store!(file)
-        location = (config[:access_type] == "dropbox") ? "/#{location}" : uploader.store_path
+        location = (config[:access_type] == "dropbox") ? "/#{uploader.store_path}" : uploader.store_path
         dropbox_client.put_file(location, file.to_file)
       end
 
