@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1 (February 24, 2014)
+
+* Use the uploader's store_path instead of the root
+
 ## 1.2.0 (January 12, 2014)
 
 * Make the `dropbox_client` method public
