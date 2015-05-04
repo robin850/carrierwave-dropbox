@@ -1,7 +1,7 @@
 # Carrierwave uploads on Dropbox
 
 This gem allows you to easily upload your medias on Dropbox using the awesome
-[Carrierwave](https://github.com/carrierwaveuploader/carrierwave) gem.
+[CarrierWave](https://github.com/carrierwaveuploader/carrierwave) gem.
 
 ## Installation
 
@@ -16,7 +16,7 @@ Then, add this line to your application's Gemfile:
 gem 'carrierwave-dropbox'
 ~~~
 
-And make sure that it get installed running the `bundle` command. Then, you have
+And make sure that it gets installed running the `bundle` command. Then, you have
 to run the `rake authorize` command to authorize your application to access to
 your Dropbox.
 
@@ -33,8 +33,10 @@ Then you have to run this task:
 rake dropbox:authorize APP_KEY=app_key APP_SECRET=app_secret ACCESS_TYPE=dropbox|app_folder
 ~~~
 
+This command will output an URL ; use your browser to hit this URL and authorize
+your application. After that, return to the console and validate typing "y".
 Finally, you will get your credentials. Config CarrierWave to make it work with
-your Dropbox:
+your Dropbox application:
 
 ~~~ruby
 CarrierWave.configure do |config|
