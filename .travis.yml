@@ -7,6 +7,9 @@ rvm:
   - 2.2
   - rbx-2
 
+before_install:
+  - gem install bundler
+
 matrix:
   allow_failures:
   - rvm: rbx-2
