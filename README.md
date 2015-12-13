@@ -17,7 +17,7 @@ gem 'carrierwave-dropbox'
 ~~~
 
 And make sure that it gets installed running the `bundle` command. Then, you have
-to run the `rake authorize` command to authorize your application to access to
+to run the `rake dropbox:authorize` command to authorize your application to access to
 your Dropbox.
 
 If you are using Rails, the Rake task is automatically loaded. Otherwise, if you
