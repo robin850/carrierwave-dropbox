@@ -21,4 +21,10 @@ class Minitest::Test
     path = File.expand_path("../fixtures/#{image}", __FILE__)
     Rack::Test::UploadedFile.new(path, "image/png")
   end
+
+  def md5_data(data)
+    md5 = Digest::MD5.new
+    md5 << data
+    md5.to_s
+  end
 end
