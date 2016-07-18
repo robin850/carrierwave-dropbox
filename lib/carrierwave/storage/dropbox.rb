@@ -1,5 +1,5 @@
 # encoding: utf-8
-require 'dropbox_sdk'
+require 'dropbox'
 
 module CarrierWave
   module Storage
@@ -10,8 +10,8 @@ module CarrierWave
 
       # Store a single file
       def store!(file)
-        location = (config[:access_type] == "dropbox") ? "/#{uploader.store_path}" : uploader.store_path
-        dropbox_client.put_file(location, file.to_file)
+        location = "/#{uploader.store_path}"
+        dropbox_client.upload(location, file.to_file)
       end
 
       # Retrieve a single file
@@ -21,9 +21,7 @@ module CarrierWave
 
       def dropbox_client
         @dropbox_client ||= begin
-          session = DropboxSession.new(config[:app_key], config[:app_secret])
-          session.set_access_token(config[:access_token], config[:access_token_secret])
-          DropboxClient.new(session, config[:access_type])
+          ::Dropbox::Client.new(config[:access_token])
         end
       end
 
@@ -32,12 +30,7 @@ module CarrierWave
       def config
         @config ||= {}
 
-        @config[:app_key] ||= uploader.dropbox_app_key
-        @config[:app_secret] ||= uploader.dropbox_app_secret
         @config[:access_token] ||= uploader.dropbox_access_token
-        @config[:access_token_secret] ||= uploader.dropbox_access_token_secret
-        @config[:access_type] ||= uploader.dropbox_access_type || "dropbox"
-        @config[:user_id] ||= uploader.dropbox_user_id
 
         @config
       end
@@ -51,15 +44,16 @@ module CarrierWave
         end
 
         def url
-          @client.media(@path)["url"]
+          metadata, result = @client.get_temporary_link("/#{@path}")
+          result
         end
 
         def delete
           path = @path
-          path = "/#{path}" if @config[:access_type] == "dropbox"
+          path = "/#{path}"
           begin
-            @client.file_delete(path)
-          rescue DropboxError
+            @client.delete(path)
+          rescue ::Dropbox::ApiError
           end
         end
       end
