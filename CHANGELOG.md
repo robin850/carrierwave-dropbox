@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.0 (August 7, 2016)
+
+* Move to using file ids instead of names, to allow end users to move files around
+
+## 2.0.0 (July 18, 2016)
+
+* Upgrade Dropbox to API version 2.0
+
 ## 1.2.1 (February 24, 2014)
 
 * Use the uploader's store_path instead of the root

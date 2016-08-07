@@ -16,11 +16,13 @@ class FileUploadTest < Minitest::Test
     post "/image/upload", attachment: file_upload('ruby.png')
     image = Image.last
 
-    assert_match 'ruby.png', image.attachment.url
+    uploaded_image = Net::HTTP.get(URI image.attachment.url)
+    assert_match md5_data(File.read(File.expand_path("../fixtures/ruby.png", __FILE__))), md5_data(uploaded_image)
 
     put "/image/edit/#{image.id}", attachment: file_upload('rails.png')
 
+    new_image = Net::HTTP.get(URI Image.last.attachment.url)
     assert last_response.ok?
-    assert_match 'rails.png', Image.last.attachment.url
+    assert_match md5_data(File.read(File.expand_path("../fixtures/rails.png", __FILE__))), md5_data(new_image)
   end
 end
