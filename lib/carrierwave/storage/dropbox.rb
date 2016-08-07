@@ -50,7 +50,7 @@ module CarrierWave
           @file_data ||= @client.get_temporary_link(@file_id)
         end
 
-        def name
+        def filename
           file_data[0].name
         end
 

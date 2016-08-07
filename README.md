@@ -65,7 +65,7 @@ MyUploader < CarrierWave::Uploader::Base
     if original_filename
       # perform any file name manipulation on initial upload
     elsif file
-      file.name
+      file.filename
     end
   end
 end
