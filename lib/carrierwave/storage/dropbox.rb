@@ -1,5 +1,5 @@
 # encoding: utf-8
-require 'dropbox_sdk'
+require 'dropbox'
 
 module CarrierWave
   module Storage
@@ -23,7 +23,7 @@ module CarrierWave
 
       def dropbox_client
         @dropbox_client ||= begin
-          Dropbox::Client.new(config[:access_token])
+          ::Dropbox::Client.new(config[:access_token])
         end
       end
 
