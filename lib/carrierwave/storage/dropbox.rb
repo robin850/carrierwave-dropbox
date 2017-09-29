@@ -1,5 +1,5 @@
 # encoding: utf-8
-require 'dropbox-sdk'
+require 'dropbox_sdk'
 
 module CarrierWave
   module Storage
