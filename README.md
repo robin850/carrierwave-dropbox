@@ -24,14 +24,13 @@ like this:
 
 ~~~ruby
 CarrierWave.configure do |config|
-  config.dropbox_access_token = ENV["ACCESS_TOKEN"]
+  config.dropbox_access_token = Rails.application.dropbox_access_token
 end
 ~~~
 
 **Note**: It's advisable not to directly store the credentials in your files
-especially if you are using a SCM (e.g. git). You should store these values in
-[environment variables for instance](https://gist.github.com/canton7/1423106)
-like in the above example.
+especially if you are using a SCM (e.g. Git). You should rather rely on Rails'
+`secrets` feature.
 
 Then you can either specify in your uploader files the storage or define it
 globally through `CarrierWave.configure`:
