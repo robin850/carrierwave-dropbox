@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.0.0
+
+* Only test against Ruby 2.2+ and Rails 5.1+. This gem might work
+  with previous versions of Ruby and Rails but it's not guaranteed.
+
+* Use file IDs instead of file name to retrieve files.
+
+  This allows people to move files around and still get these files
+  without changing the URL.
+
+  *mful*
+
+* Use version 2 of the Dropbox API (*Steve Bell*)
+
 ## 1.2.1 (February 24, 2014)
 
 * Use the uploader's store_path instead of the root
