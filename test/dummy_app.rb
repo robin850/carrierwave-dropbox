@@ -5,8 +5,6 @@ require 'carrierwave'
 require 'carrierwave/dropbox'
 require 'carrierwave/orm/activerecord'
 
-ActiveRecord::Base.raise_in_transactional_callbacks = true
-
 ActiveRecord::Base.establish_connection(
   adapter:  'sqlite3',
   database: ':memory:'
