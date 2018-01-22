@@ -16,10 +16,11 @@ Then, add this line to your application's Gemfile:
 gem 'carrierwave-dropbox'
 ~~~
 
-Run `bundle`.
+Then run `bundle` to install the gem.
 
-Grab your access token for your DB app. To make a DB app / generate token,
-go [here](https://www.dropbox.com/developers/apps).
+To make a Dropbox app and generate a token, go [here](https://www.dropbox.com/developers/apps).
+Then, specify the token in your configuration (in an initializer for instance)
+like this:
 
 ~~~ruby
 CarrierWave.configure do |config|
@@ -43,33 +44,33 @@ end
 
 ## Notable differences from other storage engines
 
-Unlike typical `CarrierWave` storage engines, we do not assume an uploaded file
-will always be at the same path, as DB UI users may move files around. As such,
-this version of this gem relies on the file id. There are two significant
-implications to this approach:
+Unlike typical CarrierWave storage engines, we do not assume an uploaded file
+will always be at the same path, as Dropbox UI users may move files around. As
+such, this gem relies on the file id. There are two significant implications to
+this approach:
 
 1. The `#store_path` and `#store_dir` methods are not guaranteed to be accurate
-after the initial file upload. We do not overwrite these methods as the end user
-will often overwrite these methods to specify where the file should initially
-be stored.
-1. The default `#filename` method is not accurate, as we are storing the DB id,
-rather than the name of the file. I recommend that end users overwrite the
-`#filename` method to delegate to the `CarrierWave::Storage::Dropbox::File`
-interface. Example:
+   after the initial file upload. We do not overwrite these methods as the end user
+   will often overwrite these methods to specify where the file should initially
+   be stored.
+2. The default `#filename` method is not accurate, as we are storing the Dropbox
+   id, rather than the name of the file. It's recommended that end users overwrite
+   the `#filename` method to delegate to the `CarrierWave::Storage::Dropbox::File`
+   interface. For example:
 
-~~~ruby
-MyUploader < CarrierWave::Uploader::Base
-  storage :dropbox
+    ~~~ruby
+    class MyUploader < CarrierWave::Uploader::Base
+      storage :dropbox
 
-  def filename
-    if original_filename
-      # perform any file name manipulation on initial upload
-    elsif file
-      file.filename
+      def filename
+        if original_filename
+          # Perform any file name manipulation on initial upload
+        elsif file
+          file.filename
+        end
+      end
     end
-  end
-end
-~~~
+    ~~~
 
 ## Special thanks
 
