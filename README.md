@@ -16,43 +16,21 @@ Then, add this line to your application's Gemfile:
 gem 'carrierwave-dropbox'
 ~~~
 
-And make sure that it gets installed running the `bundle` command. Then, you have
-to run the `rake dropbox:authorize` command to authorize your application to access to
-your Dropbox.
+Then run `bundle` to install the gem.
 
-If you are using Rails, the Rake task is automatically loaded. Otherwise, if you
-aren't running a Rails application, first load the task in your `Rakefile`:
-
-~~~ruby
-load "carrierwave/dropbox/authorize.rake"
-~~~
-
-Then you have to run this task:
-
-~~~bash
-rake dropbox:authorize APP_KEY=app_key APP_SECRET=app_secret ACCESS_TYPE=dropbox|app_folder
-~~~
-
-This command will output an URL ; use your browser to hit this URL and authorize
-your application. After that, return to the console and validate typing "y".
-Finally, you will get your credentials. Config CarrierWave to make it work with
-your Dropbox application:
+To make a Dropbox app and generate a token, go [here](https://www.dropbox.com/developers/apps).
+Then, specify the token in your configuration (in an initializer for instance)
+like this:
 
 ~~~ruby
 CarrierWave.configure do |config|
-  config.dropbox_app_key = ENV["APP_KEY"]
-  config.dropbox_app_secret = ENV["APP_SECRET"]
-  config.dropbox_access_token = ENV["ACCESS_TOKEN"]
-  config.dropbox_access_token_secret = ENV["ACCESS_TOKEN_SECRET"]
-  config.dropbox_user_id = ENV["USER_ID"]
-  config.dropbox_access_type = "dropbox"
+  config.dropbox_access_token = Rails.application.dropbox_access_token
 end
 ~~~
 
 **Note**: It's advisable not to directly store the credentials in your files
-especially if you are using a SCM (e.g. git). You should store these values in
-[environment variables for instance](https://gist.github.com/canton7/1423106)
-like in the above example.
+especially if you are using a SCM (e.g. Git). You should rather rely on Rails'
+`secrets` feature.
 
 Then you can either specify in your uploader files the storage or define it
 globally through `CarrierWave.configure`:
@@ -62,6 +40,36 @@ class ImageUploader < CarrierWave::Uploader::Base
   storage :dropbox
 end
 ~~~
+
+## Notable differences from other storage engines
+
+Unlike typical CarrierWave storage engines, we do not assume an uploaded file
+will always be at the same path, as Dropbox UI users may move files around. As
+such, this gem relies on the file id. There are two significant implications to
+this approach:
+
+1. The `#store_path` and `#store_dir` methods are not guaranteed to be accurate
+   after the initial file upload. We do not overwrite these methods as the end user
+   will often overwrite these methods to specify where the file should initially
+   be stored.
+2. The default `#filename` method is not accurate, as we are storing the Dropbox
+   id, rather than the name of the file. It's recommended that end users overwrite
+   the `#filename` method to delegate to the `CarrierWave::Storage::Dropbox::File`
+   interface. For example:
+
+    ~~~ruby
+    class MyUploader < CarrierWave::Uploader::Base
+      storage :dropbox
+
+      def filename
+        if original_filename
+          # Perform any file name manipulation on initial upload
+        elsif file
+          file.filename
+        end
+      end
+    end
+    ~~~
 
 ## Special thanks
 

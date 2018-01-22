@@ -5,6 +5,7 @@ Rake::TestTask.new("test_unit") do |t|
   t.libs << "test"
   t.pattern = 'test/**/*_test.rb'
   t.verbose = true
+  t.warning = false
   t.description = "Run the unit tests without loading .credentials.yml"
 end
 

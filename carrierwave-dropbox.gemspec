@@ -18,13 +18,13 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "carrierwave", "~> 0.10"
-  spec.add_dependency "dropbox-sdk", "~> 1.6.4"
+  spec.add_dependency "carrierwave", "~> 1.2"
+  spec.add_dependency "dropbox-sdk-v2", "~> 0.0.3"
 
-  spec.add_development_dependency "bundler", "~> 1.11"
-  spec.add_development_dependency "rake", "~> 10.4"
-  spec.add_development_dependency "rack-test", "~> 0.6"
+  spec.add_development_dependency "bundler", "~> 1.16"
+  spec.add_development_dependency "rake", "~> 12.3"
+  spec.add_development_dependency "rack-test", "~> 0.8"
   spec.add_development_dependency "sqlite3", "~> 1.3"
-  spec.add_development_dependency "sinatra", "~> 1.4"
-  spec.add_development_dependency "activerecord", "~> 4.2"
+  spec.add_development_dependency "sinatra", "~> 2.0"
+  spec.add_development_dependency "activerecord", "~> 5.1"
 end
