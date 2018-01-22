@@ -19,7 +19,7 @@ ActiveRecord::Schema.define do
 end
 
 CarrierWave.configure do |config|
-  config.dropbox_access_token        = ENV["ACCESS_TOKEN"]
+  config.dropbox_access_token = ENV["ACCESS_TOKEN"]
 end
 
 class ImageUploader < CarrierWave::Uploader::Base
