@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'net/http'
 
 class FileUploadTest < Minitest::Test
   def test_uploading_a_simple_file
